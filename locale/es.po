@@ -1,0 +1,11 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:sale.configuration,pos:"
+msgid "Point of Sale"
+msgstr "Punto de Venta"
+
+msgctxt "field:sale.sale,pos:"
+msgid "Point of Sale"
+msgstr "Punto de Venta"
