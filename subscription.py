@@ -28,7 +28,15 @@ class Subscription(metaclass=PoolMeta):
         self.__get_paymode()
 
     def _get_invoice(self):
+        Configuration = Pool().get('sale.configuration')
         invoice = super(Subscription, self)._get_invoice()
+        config = Configuration(1)
         if invoice:
             invoice.paymode = self.paymode
+            if config.invoice_description:
+                invoice.comment = config.invoice_description
+                if self.paymode.bank_account:
+                    invoice.comment += ' %s' % (self.paymode.bank_account.rec_name)
+                elif self.paymode.credit_number:
+                    invoice.comment = ' %s' % (self.paymode.credit_number)
         return invoice
