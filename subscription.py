@@ -33,7 +33,7 @@ class Subscription(metaclass=PoolMeta):
         config = Configuration(1)
         if invoice:
             invoice.paymode = self.paymode
-            if config.invoice_description:
+            if self.paymode and config.invoice_description:
                 invoice.comment = config.invoice_description
                 if self.paymode.bank_account:
                     invoice.comment += ' %s' % (self.paymode.bank_account.rec_name)
