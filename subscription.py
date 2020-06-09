@@ -36,7 +36,10 @@ class Subscription(metaclass=PoolMeta):
             if self.paymode and config.invoice_description:
                 invoice.comment = config.invoice_description
                 if self.paymode.bank_account:
-                    invoice.comment += ' %s' % (self.paymode.bank_account.rec_name)
+                    debit = self.paymode.bank_account.rec_name
+                    invoice.comment += ' %s' % '{:*>23}'.format(debit[-4:])
                 elif self.paymode.credit_number:
-                    invoice.comment = ' %s' % (self.paymode.credit_number)
+                    debit = self.paymode.credit_number
+                    invoice.comment += ' %s' % '{:*>16}'.format(debit[-4:])
+
         return invoice
