@@ -11,7 +11,7 @@ __all__ = ['Subscription']
 class Subscription(metaclass=PoolMeta):
     __name__ = 'sale.subscription'
     paymode = fields.Many2One('payment.paymode', 'Paymode',
-        domain=[('party', '=', Eval('party', None))], depends=['party'])
+        domain=[('party', '=', Eval('party', -1))], depends=['party'])
 
     def __get_paymode(self):
         '''
