@@ -16,7 +16,7 @@ class Configuration(metaclass=PoolMeta):
         pool = Pool()
         if field == 'invoice_description':
             return pool.get('sale.configuration.payment_collect')
-        return super(Configuration, cls).multivalue_model(field)
+        return super().multivalue_model(field)
 
     @classmethod
     def default_invoice_description(cls, **pattern):

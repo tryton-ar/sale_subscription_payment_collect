@@ -23,13 +23,13 @@ class Subscription(metaclass=PoolMeta):
 
     @fields.depends('party', 'paymode')
     def on_change_party(self):
-        super(Subscription, self).on_change_party()
+        super().on_change_party()
         self.paymode = None
         self.__get_paymode()
 
     def _get_invoice(self):
         Configuration = Pool().get('sale.configuration')
-        invoice = super(Subscription, self)._get_invoice()
+        invoice = super()._get_invoice()
         config = Configuration(1)
         if invoice:
             invoice.paymode = self.paymode
