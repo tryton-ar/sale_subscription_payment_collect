@@ -1,5 +1,7 @@
-# The COPYRIGHT file at the top level of this repository contains the
-# full copyright notices and license terms.
+# This file is part sale_subscription_payment_collect module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
+
 from trytond.model import fields, ModelSQL
 from trytond.pool import PoolMeta, Pool
 from trytond.modules.company.model import CompanyValueMixin
@@ -7,7 +9,9 @@ from trytond.modules.company.model import CompanyValueMixin
 
 class Configuration(metaclass=PoolMeta):
     __name__ = 'sale.configuration'
-    invoice_description = fields.MultiValue(fields.Char('Invoice description'))
+
+    invoice_description = fields.MultiValue(fields.Char(
+        'Invoice description'))
 
     @classmethod
     def multivalue_model(cls, field):
@@ -23,8 +27,9 @@ class Configuration(metaclass=PoolMeta):
 
 
 class ConfigurationPaymentCollect(ModelSQL, CompanyValueMixin):
-    "Sale Configuration PaymentCollect"
+    "Sale Payment Collect Configuration"
     __name__ = 'sale.configuration.payment_collect'
+
     invoice_description = fields.Char('Invoice description')
 
     @classmethod

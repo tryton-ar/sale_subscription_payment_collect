@@ -1,3 +1,4 @@
+# This file is part sale_subscription_payment_collect module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 
@@ -8,7 +9,8 @@ from trytond.pyson import Eval
 
 class Subscription(metaclass=PoolMeta):
     __name__ = 'sale.subscription'
-    paymode = fields.Many2One('payment.paymode', 'Paymode',
+
+    paymode = fields.Many2One('payment.paymode', 'Pay mode',
         domain=[('party', '=', Eval('party', -1))], depends=['party'])
 
     def __get_paymode(self):
