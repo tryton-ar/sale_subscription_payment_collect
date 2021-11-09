@@ -2,10 +2,30 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "field:sale.configuration,invoice_description:"
+msgid "Invoice description"
+msgstr "Descripción de la factura"
+
 msgctxt "field:sale.configuration,pos:"
 msgid "Point of Sale"
 msgstr "Punto de Venta"
 
+msgctxt "field:sale.configuration.payment_collect,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:sale.configuration.payment_collect,invoice_description:"
+msgid "Invoice description"
+msgstr "Descripción de la factura"
+
 msgctxt "field:sale.sale,pos:"
 msgid "Point of Sale"
 msgstr "Punto de Venta"
+
+msgctxt "field:sale.subscription,paymode:"
+msgid "Pay mode"
+msgstr "Modo de pago"
+
+msgctxt "model:sale.configuration.payment_collect,name:"
+msgid "Sale Payment Collect Configuration"
+msgstr "Configuración de Cobranza de Venta"
