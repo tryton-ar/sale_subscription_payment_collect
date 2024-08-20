@@ -14,7 +14,7 @@ Imports::
     >>> from trytond.modules.account.tests.tools import create_chart, \
     ...     get_accounts
 
-Install sale_subscription::
+Activate modules::
 
     >>> config = activate_modules('sale_subscription_payment_collect')
 
@@ -175,6 +175,8 @@ Create subscription invoice::
     >>> create_invoice.execute('create_')
 
     >>> invoice, = Invoice.find([])
+    >>> invoice.invoice_date
+    datetime.date(2016, 2, 1)
     >>> invoice.paymode == paymode2
     True
     >>> line, = invoice.lines
@@ -192,7 +194,8 @@ Close subscription::
     >>> subscription.click('draft')
     >>> subscription.state
     'draft'
-    >>> subscription.end_date = datetime.date(2016, 1, 31)
+    >>> line, = subscription.lines
+    >>> line.end_date = datetime.date(2016, 1, 31)
     >>> subscription.click('quote')
     >>> subscription.click('run')
     >>> subscription.state
@@ -204,7 +207,7 @@ Close subscription::
     >>> line_consumption_create.execute('create_')
 
     >>> len(LineConsumption.find([]))
-    32
+    31
 
     >>> subscription.reload()
     >>> line, = subscription.lines
@@ -219,4 +222,4 @@ Create final subscription invoice::
     >>> create_invoice.execute('create_')
 
     >>> len(Invoice.find([]))
-    2
+    1
