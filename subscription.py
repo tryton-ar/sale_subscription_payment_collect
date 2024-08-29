@@ -4,28 +4,43 @@
 
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval
+from trytond.pyson import Eval, If, Bool
 
 
 class Subscription(metaclass=PoolMeta):
     __name__ = 'sale.subscription'
 
-    paymode = fields.Many2One('payment.paymode', 'Pay mode',
-        domain=[('party', '=', Eval('party', -1))], depends=['party'])
+    paymode = fields.Many2One('payment.paymode', 'Paymode',
+        domain=[
+            ('party', '=', If(Bool(Eval('invoice_party',)),
+                    Eval('invoice_party'), Eval('party'))),
+            ],
+        states={
+            'readonly': Eval('state') != 'draft',
+            })
 
-    def __get_paymode(self):
-        '''
-        Return paymode.
-        '''
+    @fields.depends('party', 'invoice_party', 'paymode')
+    def on_change_party(self):
+        super(Subscription, self).on_change_party()
+
+        if not self.invoice_party:
+            self.paymode = None
         if self.party:
+            if not self.invoice_party:
+                if self.party.customer_paymode:
+                    self.paymode = self.party.customer_paymode
+
+    @fields.depends('party', 'invoice_party', 'paymode')
+    def on_change_invoice_party(self):
+        super(Subscription, self).on_change_invoice_party()
+
+        self.paymode = None
+        if self.invoice_party:
+            if self.invoice_party.customer_paymode:
+                self.paymode = self.invoice_party.customer_paymode
+        elif self.party:
             if self.party.customer_paymode:
                 self.paymode = self.party.customer_paymode
-
-    @fields.depends('party', 'paymode')
-    def on_change_party(self):
-        super().on_change_party()
-        self.paymode = None
-        self.__get_paymode()
 
     def _get_invoice(self):
         Configuration = Pool().get('sale.configuration')
