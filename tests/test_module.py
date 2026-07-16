@@ -5,7 +5,7 @@ from trytond.modules.company.tests import CompanyTestMixin
 from trytond.tests.test_tryton import ModuleTestCase
 
 
-class SaleSubscriptionPaymentCollectTestCase(ModuleTestCase):
+class SaleSubscriptionPaymentCollectTestCase(CompanyTestMixin, ModuleTestCase):
     'SaleSubscriptionPaymentCollectTestCase'
     module = 'sale_subscription_payment_collect'
 
